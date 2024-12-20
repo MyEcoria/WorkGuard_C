@@ -6,12 +6,22 @@
 ##
 
 NAME = workguard
-CFLAGS = -Wall -Wextra -Werror -g3
+DEBUG = -Wall -Wextra -Werror -g3
+OPTIMISATION = -O3 -Ofast -march=native -flto \
+	-funroll-loops -fomit-frame-pointer
 
 all: $(NAME)
 
 $(NAME):
-	gcc src/*.c -o $(NAME)
+	gcc src/main.c \
+	src/modules/epollo.c \
+	src/modules/http.c \
+	src/modules/socket.c \
+	src/modules/utils.c \
+	-o $(NAME) $(OPTIMISATION)
+
+debug: fclean
+	gcc src/*.c src/modules/*.c -o $(NAME) $(DEBUG)
 
 clean:
 	rm -f a.out
