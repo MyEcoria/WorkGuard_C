@@ -66,13 +66,24 @@ int create_listen(int sd)
     return listo;
 }
 
-char *get_resp(void)
+char *get_pow(void)
 {
     char *hello;
 
     hello = "HTTP/1.0 200 OK\r\n"
     "Server: webserver-c\r\n"
-    "Content-type: text/txt\r\n\r\n"
-    "hello, world\r\n";
+    "Content-type: text/html\r\n\r\n"
+    "<!DOCTYPE html> <html lang=\"fr\"> <head> <meta charset=\"UTF-8\"> <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"> <title>Logo Centré</title> <style> body { margin: 0; height: 100vh; display: flex; justify-content: center; align-items: center; background-color: #f0f0f0; } .logo { width: 200px; height: 200px; border-radius: 50%; box-shadow: 0 4px 8px rgba(0,0,0,0.1); transition: transform 0.3s ease; } .logo:hover { transform: scale(1.1); } </style> </head> <body> <img src=\"https://nanbet.io/logo.png\" alt=\"Logo\" class=\"logo\"> <script> document.cookie = \"nom=valeur\"; </script> </body> </html>";
+    return hello;
+}
+
+char *get_page(void)
+{
+    char *hello;
+
+    hello = "HTTP/1.0 200 OK\r\n"
+    "Server: webserver-c\r\n"
+    "Content-type: text/html\r\n\r\n"
+    "<!DOCTYPE html><html lang=\"fr\"><head><meta charset=\"UTF-8\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><title>Logo Centré</title><style>body{margin:0;height:100vh;display:flex;justify-content:center;align-items:center;background-color:#f0f0f0}.logo{width:200px;height:200px;border-radius:50%;box-shadow:0 4px 8px rgba(0,0,0,.1);transition:transform .3s ease}.logo:hover{transform:scale(1.1)}</style></head><body><img src=\"https://nanbet.io/logo.png\" alt=\"Logo\" class=\"logo\"><script>// Fonction pour définir un cookie function setCookie(name, value, days) { const date = new Date(); date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000)); const expires = \"expires=\" + date.toUTCString(); document.cookie = name + \"=\" + value + \";\" + expires + \";path=/\"; } // Définir le cookie pow=abcde (valide pour 30 jours) setCookie('pow', 'abcde', 30);</script></body></html>\r\n";
     return hello;
 }

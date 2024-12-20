@@ -34,13 +34,16 @@ fclean: clean
 	-rm -f *.out
 	-rm -f unit_tests
 	-rm -f coverage.json
+	-rm -rf lmdb
+	-rm -f lib/liblmdb.a
+	-rm -f include/lmdb.h
+	-rm -f test
 
 re : fclean all
 
-unit_tests: fclean all
-	gcc src/lib/* src/modules/*.c \
-	src/modules/algo/*.c tests/*.c \
-	-lcriterion -o unit_tests --coverage
-
-tests_run: unit_tests
-	./unit_tests
+test:
+	-git clone https://github.com/LMDB/lmdb.git
+	cd lmdb/libraries/liblmdb && make && cd ../../..
+	cp lmdb/libraries/liblmdb/liblmdb.a lib/liblmdb.a
+	cp lmdb/libraries/liblmdb/lmdb.h include/lmdb.h
+	gcc test.c lib/* -o test

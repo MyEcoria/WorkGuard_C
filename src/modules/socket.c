@@ -45,7 +45,7 @@ int write_in_socket(int accepto, char resp[])
 
 int all_sockets_detected(server_t *server, int i)
 {
-    char *resp = get_resp();
+    char *resp = get_pow();
     int accepto = 0;
     int writo = 0;
 

@@ -6,7 +6,7 @@
 */
 #ifndef SOCKET_H
     #define SOCKET_H
-    #define PORT 8030
+    #define PORT 8070
     #define MAX_EVENTS 1024
     #include <sys/socket.h>
     #include <netinet/in.h>
@@ -30,7 +30,7 @@ void all_sockets(server_t *server);
 int setup_nonblock(int fd);
 int create_bind(int sd, struct sockaddr_in *network);
 int create_listen(int sd);
-char *get_resp(void);
+char *get_pow(void);
 int accept_connection(int sd,
     struct sockaddr_in *network, int sizesock);
 #endif
