@@ -12,16 +12,18 @@ OPTIMISATION = -O3 -Ofast -march=native -flto \
 
 all: $(NAME)
 
-$(NAME):
+$(NAME): lmdb
 	gcc src/main.c \
-	src/modules/epollo.c \
-	src/modules/http.c \
-	src/modules/socket.c \
-	src/modules/utils.c \
-	-o $(NAME) $(OPTIMISATION)
+	src/modules/http/epollo.c \
+	src/modules/http/http.c \
+	src/modules/http/socket.c \
+	src/modules/http/utils.c \
+	src/modules/db/db.c \
+	lib/liblmdb.a \
+	-o $(NAME)
 
 debug: fclean
-	gcc src/*.c src/modules/*.c -o $(NAME) $(DEBUG)
+	gcc src/*.c src/modules/http/*.c -o $(NAME) $(DEBUG)
 
 clean:
 	rm -f a.out
@@ -35,11 +37,20 @@ fclean: clean
 	-rm -f unit_tests
 	-rm -f coverage.json
 	-rm -rf lmdb
-	-rm -f lib/liblmdb.a
-	-rm -f include/lmdb.h
 	-rm -f test
 
 re : fclean all
+
+lmdb:
+	-git clone https://github.com/LMDB/lmdb.git
+	cd lmdb/libraries/liblmdb && make && cd ../../..
+	cp lmdb/libraries/liblmdb/liblmdb.a lib/liblmdb.a
+	cp lmdb/libraries/liblmdb/lmdb.h include/lmdb.h
+
+lmdb_clean:
+	-rm -rf lmdb
+	-rm -f lib/liblmdb.a
+	-rm -f include/lmdb.h
 
 test:
 	-git clone https://github.com/LMDB/lmdb.git

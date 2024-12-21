@@ -14,4 +14,11 @@
         MDB_txn *txn;
         int rc;
     } db_t;
+    void create_dir_if_not_exists(const char *path);
+    int open_lmdb(db_t *database, const char *db_path);
+    int begin_transaction(db_t *database);
+    void create_database(db_t *database);
+    int write_in_db(db_t *database, const char *key, const char *value);
+    char *get_value(db_t *database, const char *key);
+    void close_db(db_t *database);
 #endif
