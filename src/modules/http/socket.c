@@ -9,7 +9,7 @@
 #include <sys/socket.h>
 #include <sys/epoll.h>
 #include <arpa/inet.h>
-#include "../../include/http.h"
+#include "../../../include/http.h"
 #include <unistd.h>
 #include <string.h>
 #include <fcntl.h>
@@ -45,7 +45,7 @@ int write_in_socket(int accepto, char resp[])
 
 int all_sockets_detected(server_t *server, int i)
 {
-    char *resp = get_resp();
+    char *resp = get_pow();
     int accepto = 0;
     int writo = 0;
 

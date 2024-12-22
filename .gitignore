@@ -1,3 +1,10 @@
 workguard
 *.log
 .vscode
+include/lmdb.h
+lib/liblmdb.a
+lmdb
+test
+test.c
+data
+src/db.c

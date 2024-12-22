@@ -17,8 +17,9 @@
 #include <stdlib.h>
 #include <signal.h>
 
-void handle_sigint() {
-    printf("\nCtrl+C détecté. Exit...\n");
+void handle_sigint(int sig)
+{
+    printf("\nCtrl+C détecté. Exit... (%d)\n", sig);
     exit(0);
 }
 
