@@ -8,20 +8,19 @@
 NAME = workguard
 DEBUG = -Wall -Wextra -Werror -g3
 OPTIMISATION = -O3 -Ofast -march=native -flto \
-	-funroll-loops -fomit-frame-pointer
+	-funroll-loops -fomit-frame-pointer -pthread
 
 all: $(NAME)
 
-$(NAME): lmdb
+$(NAME): lmdb h2o
 	gcc src/main.c \
-	src/modules/http/epollo.c \
-	src/modules/http/http.c \
-	src/modules/http/socket.c \
-	src/modules/http/utils.c \
+	src/modules/http/h2o.c \
 	src/modules/db/db.c \
 	src/modules/db/utils_db.c \
 	lib/liblmdb.a \
-	-o $(NAME)
+	lib/libh2o.a \
+	-luv -lssl -lcrypto -lz -lm -lpthread \
+	-o $(NAME) $(OPTIMISATION)
 
 debug: fclean
 	gcc src/*.c src/modules/http/*.c -o $(NAME) $(DEBUG)
@@ -37,8 +36,8 @@ fclean: clean
 	-rm -f *.out
 	-rm -f unit_tests
 	-rm -f coverage.json
-	-rm -rf lmdb
 	-rm -f test
+	-rm -rf data
 
 re : fclean all
 
@@ -48,15 +47,18 @@ lmdb:
 	cp lmdb/libraries/liblmdb/liblmdb.a lib/liblmdb.a
 	cp lmdb/libraries/liblmdb/lmdb.h include/lmdb.h
 
-lmdb_clean:
+lib_clean:
 	-rm -rf lmdb
 	-rm -f lib/liblmdb.a
 	-rm -f include/lmdb.h
 	-rm -rf data
+	-rm -rf h2o
+	-rm -f lib/libh2o.a
+	-rm -f include/h2o.h
+	-rm -rf include/h2o
 
-test:
-	-git clone https://github.com/LMDB/lmdb.git
-	cd lmdb/libraries/liblmdb && make && cd ../../..
-	cp lmdb/libraries/liblmdb/liblmdb.a lib/liblmdb.a
-	cp lmdb/libraries/liblmdb/lmdb.h include/lmdb.h
-	gcc test.c lib/* -o test
+h2o:
+	-git clone --recursive https://github.com/MyEcoria/h2o.git
+	cd h2o && cmake . && make && cd ..
+	cp h2o/libh2o_static.a lib/libh2o.a
+	cp -r h2o/include/* include/
