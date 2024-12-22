@@ -19,6 +19,7 @@ $(NAME): lmdb
 	src/modules/http/socket.c \
 	src/modules/http/utils.c \
 	src/modules/db/db.c \
+	src/modules/db/utils_db.c \
 	lib/liblmdb.a \
 	-o $(NAME)
 
@@ -51,6 +52,7 @@ lmdb_clean:
 	-rm -rf lmdb
 	-rm -f lib/liblmdb.a
 	-rm -f include/lmdb.h
+	-rm -rf data
 
 test:
 	-git clone https://github.com/LMDB/lmdb.git
