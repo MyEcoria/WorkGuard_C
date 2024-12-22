@@ -9,13 +9,13 @@
 #include <sys/socket.h>
 #include <sys/epoll.h>
 #include <arpa/inet.h>
-#include "../include/http.h"
 #include <unistd.h>
 #include <string.h>
 #include <fcntl.h>
 #include <time.h>
 #include <stdlib.h>
 #include <signal.h>
+#include "../include/server.h"
 
 void handle_sigint(int sig)
 {
@@ -25,11 +25,11 @@ void handle_sigint(int sig)
 
 int main(void)
 {
-    server_t server;
+    server_t *server = malloc(sizeof(server_t));
 
     signal(SIGINT, handle_sigint);
-    init_server(&server);
-    all_sockets(&server);
-    free(server.network);
+    if (server == NULL)
+        return 84;
+    start_server(server);
     return 0;
 }
