@@ -29,7 +29,7 @@ To install WorkGuard_C, follow these steps:
 
 To start using WorkGuard_C, run the following command:
 ```sh
-./workguard_c
+./workguard
 ```
 
 ## Contributing
