@@ -42,5 +42,5 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 
 ## Acknowledgements
 
-- [H2O](https://h2o.examp.le) - The high-performance web server.
-- [BLAKE3](https://blake3.examp.le) - The cryptographic hash function used for proof-of-work.
+- [H2O](https://h2o.examp1e.net/) - The high-performance web server.
+- [BLAKE3](https://github.com/BLAKE3-team/BLAKE3) - The cryptographic hash function used for proof-of-work.
