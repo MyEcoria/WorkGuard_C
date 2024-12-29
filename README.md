@@ -2,6 +2,12 @@
 
 WorkGuard_C is a low-level DDoS protection tool that utilizes H2O and a proof-of-work (PoW) mechanism based on BLAKE3.
 
+## To-do list
+- [x] Create high H2O HTTP server
+- [ ] Create a proxy to an HTTP server
+- [ ] Add a simple middleware
+- [ ] Add PoW
+
 ## Features
 
 - **Low-level DDoS Protection**: Efficiently mitigates DDoS attacks.
